@@ -9,7 +9,7 @@ namespace Toys.Lexers
 {
     public class Lexer : IDisposable
     {
-        public static Regex Pattern = new Regex("\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")|[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|[+\\-*/<=>]|&&|\\|\\||\\p{P})?", RegexOptions.Compiled);
+        public static Regex Pattern = new Regex("\\s*((?://\\s*(.*))|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")|[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|[+\\-*/<=>]|&&|\\|\\||\\p{P})?", RegexOptions.Compiled);
 
         private Queue<Token> tokens;
         private LineNumberReader reader;
@@ -85,7 +85,8 @@ namespace Toys.Lexers
             if(m != "") // if not a space
             {
                 Token token = null;
-                if (match.Groups[2].Value == "") // if not a comment
+                string comment = match.Groups[2].Value; // comment
+                if (comment == "") // if not a comment
                 {
                     if(match.Groups[3].Value != "")
                     {
@@ -102,7 +103,7 @@ namespace Toys.Lexers
                 }
                 else
                 {
-                    token = new CommentToken(lineNumber, g.Index, g.Index + g.Length - 1, m);
+                    token = new CommentToken(lineNumber, g.Index, g.Index + g.Length - 1, comment);
                 }
                 tokens.Enqueue(token);
             }

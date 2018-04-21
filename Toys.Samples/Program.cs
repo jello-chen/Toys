@@ -19,7 +19,7 @@ namespace Toys.Samples
                 Token token = null;
                 while ((token = lexer.Read()) != Token.EOF)
                 {
-                    Console.WriteLine($"Text: {token.Text}, Line: {token.LineNumber}, Col: [{token.Start}-{token.End}]");
+                    Console.WriteLine($"Text: {token.Text}, Line: {token.LineNumber}, Col: [{token.Start}-{token.End}], Type: {token.GetType().Name}");
                 }
             }
 

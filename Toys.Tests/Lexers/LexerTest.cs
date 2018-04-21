@@ -47,7 +47,7 @@ namespace Toys.Tests.Lexers
                 Assert.AreEqual(token.End, 11);
 
                 token = lexer.Read();
-                Assert.AreEqual(token.Text, "// Sum from 0 to 9");
+                Assert.AreEqual(token.Text, "Sum from 0 to 9");
                 Assert.AreEqual(token.IsComment, true);
                 Assert.AreEqual(token.LineNumber, 1);
                 Assert.AreEqual(token.Start, 13);
